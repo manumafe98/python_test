@@ -39,4 +39,4 @@ for commits in commits_data:
     commits_list.append(commits["sha"])    
 
 # Save the data to a csv
-np.savetxt('/home/manuel/python/github.csv', [p for p in zip(repos_list, commits_list, tags_list)], delimiter=',', fmt='%s')
+np.savetxt('/home/manuel/python/python_test/github.csv', [p for p in zip(repos_list, commits_list, tags_list)], delimiter=',', fmt='%s')
