@@ -17,10 +17,14 @@ import numpy as np
 ids_array = np.arange(1,100)
 anime_array = []
 
+# Get request and format to json, making an array of only the anime titles
 for id in ids_array:
     anime_array.append(requests.get(f"https://kitsu.io/api/edge/anime?filter[id]={id}").json()['data'][0]['attributes']['canonicalTitle'])
 
+# Getting a random anime from the array
 random_anime = random.choice(anime_array)
+
+# Getting the average ratin of the anime that was selected randomly
 average_rating = requests.get(f"https://kitsu.io/api/edge/anime?filter[text]={random_anime}").json()['data'][0]['attributes']['averageRating']
 
 print("Your randomized anime is:" + " " + random_anime + "," + " " +  "The rating of the show is:" + " " + average_rating)
