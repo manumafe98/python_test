@@ -24,9 +24,20 @@ for id in ids_array:
 # Getting a random anime from the array
 random_anime = random.choice(anime_array)
 
-# Getting the average ratin of the anime that was selected randomly
+# Getting the average rating of the anime that was selected randomly
 average_rating = requests.get(f"https://kitsu.io/api/edge/anime?filter[text]={random_anime}").json()['data'][0]['attributes']['averageRating']
 
-print("Your randomized anime is:" + " " + random_anime + "," + " " +  "The rating of the show is:" + " " + average_rating)
+# Getting the genres of the anime
+anime_id = requests.get(f"https://kitsu.io/api/edge/anime?filter[text]={random_anime}").json()['data'][0]['id']
+len_get_genres = len(requests.get(f"https://kitsu.io/api/edge/anime/{anime_id}/genres").json()['data']) - 1
 
-# Get the genres of the anime
+genre_list = []
+for i in range(0, len_get_genres):
+    get_genres = requests.get(f"https://kitsu.io/api/edge/anime/{anime_id}/genres").json()['data'][i]['attributes']
+    for key, value in get_genres.items():
+        if key == 'name':
+            genre_list.append(value)
+separator = ", "
+s = separator.join(genre_list)
+
+print("Your randomized anime is: " + random_anime + "," + " The rating of the show is: " + average_rating + "," + " The main genres of the anime are: " + s )
